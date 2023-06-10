@@ -44,10 +44,23 @@ def process_coind():
     return (0.25*quarters) + (0.10*dimes) + (0.05*nickles)+ (0.01*pennies)
 
 
+def give_change(money_given, coffee_price):
+    if money_given - coffee_price > 0:
+        change = money_given - coffee_price
+        print(f"Here is {change} dollars in change")
+    return
+
+
 def make_espresso():
     if is_resources_sufficient(MENU['espresso']):
         money_paid = process_coind()
         print(money_paid)
+        print( MENU['espresso']['cost'])
+        if money_paid > MENU['espresso']['cost']:
+            give_change(money_paid,MENU['espresso']['cost'])
+
+        else:
+            print("Sorry that's not enough money. Money refunded.")
     return
 
 
