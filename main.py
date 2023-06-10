@@ -1,6 +1,6 @@
-from coffeMenue import  MENU
+from coffeMenue import MENU
 
-off_machine= False
+off_machine = False
 
 resources = {
     "water": {
@@ -36,12 +36,12 @@ def is_resources_sufficient(menu):
     return True
 
 
-def process_coind():
-    quarters= int(input("Quarters:"))
-    dimes= int(input("Dimes:"))
-    nickles= int(input("Nickles:"))
-    pennies= int(input("Pennies:"))
-    return (0.25*quarters) + (0.10*dimes) + (0.05*nickles)+ (0.01*pennies)
+def process_coins():
+    total = int(input("Quarters:"))*0.25
+    total += int(input("Dimes:"))*0.10
+    total += int(input("Nickles:"))*0.05
+    total += int(input("Pennies:"))*0.01
+    return total
 
 
 def process_money(money_given, coffee_price):
@@ -52,23 +52,23 @@ def process_money(money_given, coffee_price):
     return
 
 
-def make_coffe(data):
-    resources['water']['value']-= data['ingredients']['water']
-    resources['coffee']['value']-= data['ingredients']['coffee']
+def make_coffee(data):
+    resources['water']['value'] -= data['ingredients']['water']
+    resources['coffee']['value'] -= data['ingredients']['coffee']
     if 'milk' in data['ingredients']:
         resources['milk']['value'] -= data['ingredients']['milk']
     return
 
 
 def make_espresso():
-    coffe_data = MENU['espresso']
-    if is_resources_sufficient(coffe_data):
-        money_paid = process_coind()
+    coffee_data = MENU['espresso']
+    if is_resources_sufficient(coffee_data):
+        money_paid = process_coins()
         print(money_paid)
-        print( coffe_data['cost'])
-        if money_paid > coffe_data['cost']:
-            process_money(money_paid,coffe_data['cost'])
-            make_coffe(coffe_data)
+        print(coffee_data['cost'])
+        if money_paid > coffee_data['cost']:
+            process_money(money_paid, coffee_data['cost'])
+            make_coffee(coffee_data)
             print('Here is your Espresso. Enjoy!”')
         else:
             print("Sorry that's not enough money. Money refunded.")
@@ -76,14 +76,14 @@ def make_espresso():
 
 
 def make_latte():
-    coffe_data = MENU['latte']
-    if is_resources_sufficient(coffe_data):
-        money_paid = process_coind()
+    coffee_data = MENU['latte']
+    if is_resources_sufficient(coffee_data):
+        money_paid = process_coins()
         print(money_paid)
-        print(coffe_data['cost'])
-        if money_paid > coffe_data['cost']:
-            process_money(money_paid, coffe_data['cost'])
-            make_coffe(coffe_data)
+        print(coffee_data['cost'])
+        if money_paid > coffee_data['cost']:
+            process_money(money_paid, coffee_data['cost'])
+            make_coffee(coffee_data)
             print('Here is your Latte. Enjoy!”')
         else:
             print("Sorry that's not enough money. Money refunded.")
@@ -93,12 +93,12 @@ def make_latte():
 def make_cappuccino():
     coffe_data = MENU['cappuccino']
     if is_resources_sufficient(coffe_data):
-        money_paid = process_coind()
+        money_paid = process_coins()
         print(money_paid)
         print(coffe_data['cost'])
         if money_paid > coffe_data['cost']:
             process_money(money_paid, coffe_data['cost'])
-            make_coffe(coffe_data)
+            make_coffee(coffe_data)
             print('Here is your Cappuccino. Enjoy!”')
         else:
             print("Sorry that's not enough money. Money refunded.")
@@ -121,11 +121,8 @@ while off_machine is False:
     elif user_input == "cappuccino":
         make_cappuccino()
     elif user_input == "off":
-        off_machine=True
+        off_machine = True
     elif user_input == "report":
         print_report()
     else:
         print("Please Check input")
-
-
-
