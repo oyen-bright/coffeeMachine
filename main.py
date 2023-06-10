@@ -44,27 +44,39 @@ def process_coind():
     return (0.25*quarters) + (0.10*dimes) + (0.05*nickles)+ (0.01*pennies)
 
 
-def give_change(money_given, coffee_price):
+def process_money(money_given, coffee_price):
     if money_given - coffee_price > 0:
         change = money_given - coffee_price
         print(f"Here is {change} dollars in change")
+    resources['money']['value'] += coffee_price
+    return
+
+
+def make_coffe(data):
+    resources['water']['value']-= data['ingredients']['water']
+    resources['coffee']['value']-= data['ingredients']['coffee']
+    if 'milk' in data['ingredients']:
+        resources['milk']['value'] -= data['ingredients']['milk']
     return
 
 
 def make_espresso():
     if is_resources_sufficient(MENU['espresso']):
+        coffe_data=MENU['espresso']
         money_paid = process_coind()
         print(money_paid)
-        print( MENU['espresso']['cost'])
-        if money_paid > MENU['espresso']['cost']:
-            give_change(money_paid,MENU['espresso']['cost'])
-
+        print( coffe_data['cost'])
+        if money_paid > coffe_data['cost']:
+            process_money(money_paid,coffe_data['cost'])
+            make_coffe(coffe_data)
+            print('Here is your Espresso. Enjoy!”')
         else:
             print("Sorry that's not enough money. Money refunded.")
     return
 
 
 def make_latte():
+
     return
 
 
