@@ -61,8 +61,8 @@ def make_coffe(data):
 
 
 def make_espresso():
-    if is_resources_sufficient(MENU['espresso']):
-        coffe_data=MENU['espresso']
+    coffe_data = MENU['espresso']
+    if is_resources_sufficient(coffe_data):
         money_paid = process_coind()
         print(money_paid)
         print( coffe_data['cost'])
@@ -76,11 +76,32 @@ def make_espresso():
 
 
 def make_latte():
-
+    coffe_data = MENU['latte']
+    if is_resources_sufficient(coffe_data):
+        money_paid = process_coind()
+        print(money_paid)
+        print(coffe_data['cost'])
+        if money_paid > coffe_data['cost']:
+            process_money(money_paid, coffe_data['cost'])
+            make_coffe(coffe_data)
+            print('Here is your Latte. Enjoy!”')
+        else:
+            print("Sorry that's not enough money. Money refunded.")
     return
 
 
 def make_cappuccino():
+    coffe_data = MENU['cappuccino']
+    if is_resources_sufficient(coffe_data):
+        money_paid = process_coind()
+        print(money_paid)
+        print(coffe_data['cost'])
+        if money_paid > coffe_data['cost']:
+            process_money(money_paid, coffe_data['cost'])
+            make_coffe(coffe_data)
+            print('Here is your Cappuccino. Enjoy!”')
+        else:
+            print("Sorry that's not enough money. Money refunded.")
     return
 
 
